@@ -5,12 +5,12 @@ from sqlalchemy import select
 from pydantic import BaseModel
 import json
 import uuid
-from database import get_db
+from database import get_db,  AsyncSessionLocal
 from core.auth import get_current_user
-from models.user import User
+from models.users import User
 from models.conversation import Conversation, Message, AgentType
 from models.portfolio import Holding, Portfolio
-from agents.orchestrator import run_agent
+from agents.orchisteration import run_agent
 
 router = APIRouter()
 

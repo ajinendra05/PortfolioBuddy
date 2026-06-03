@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime, timezone
 import uuid
-from backend.database import Base
+from database import Base
 
 class User(Base):
     __tablename__ = "users"

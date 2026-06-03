@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from backend.database import engine, Base
-from backend.routers import auth, agents, portfolio, market, news
-from backend.memory.chroma_client import init_chroma
+from database import engine, Base
+from routers import auth, agents, portfolio, market, news
+from memory.chroma_client import init_chroma
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

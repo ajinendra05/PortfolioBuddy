@@ -4,7 +4,7 @@ from sqlalchemy.dialects.postgresql import UUID, JSONB
 from datetime import datetime, timezone
 import uuid
 import enum
-from backend.database import Base
+from database import Base
 
 class AgentType(str, enum.Enum):
     INVESTMENT = "investment"
