@@ -13,6 +13,7 @@ dependencies = [
     "pandas>=3.0.3",
     "pydantic-settings>=2.14.1",
     "sentence-transformers>=5.5.1",
+    "sqlalchemy>=2.0.50",
     "vadersentiment>=3.3.2",
     "yfinance>=1.4.1",
 ]
