@@ -1,7 +1,7 @@
 import requests
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from langchain_core.tools import tool
-# from backend.config import settings
+from config import settings
 # from backend.services.cache_service import get_cached, set_cached
 
 analyzer = SentimentIntensityAnalyzer()
@@ -13,9 +13,9 @@ def get_financial_news(query: str, page_size: int = 10) -> list[dict]:
     Returns title, description, url, source, sentiment_score.
     """
     cache_key = f"news:{query}:{page_size}"
-    cached = get_cached(cache_key)
-    if cached:
-        return cached
+    # cached = get_cached(cache_key)
+    # if cached:
+    #     return cached
 
     url = "https://newsapi.org/v2/everything"
     params = {
@@ -48,7 +48,7 @@ def get_financial_news(query: str, page_size: int = 10) -> list[dict]:
             ),
         })
 
-    set_cached(cache_key, articles, ttl=600)  # 10-min cache
+    # set_cached(cache_key, articles, ttl=600)  # 10-min cache
     return articles
 
 
