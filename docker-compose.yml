@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+
+    container_name: finai-postgres
+
+    environment:
+      POSTGRES_USER: PortfolioBuddy
+      POSTGRES_PASSWORD: Portfoliobuddy-2026
+      POSTGRES_DB: PortfolioBuddy_DB
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

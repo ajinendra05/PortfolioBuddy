@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from database import engine, Base
-from routers import auth, agents, portfolio, market, news
+from routers import auth_router, agent_router  #, portfolio_router, market_router, news_router
 from memory.chroma_client import init_chroma
 
 @asynccontextmanager
@@ -30,11 +30,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
-app.include_router(agents.router, prefix="/api/agents", tags=["agents"])
-app.include_router(portfolio.router, prefix="/api/portfolio", tags=["portfolio"])
-app.include_router(market.router, prefix="/api/market", tags=["market"])
-app.include_router(news.router, prefix="/api/news", tags=["news"])
+app.include_router(auth_router, prefix="/api/auth", tags=["auth"])
+app.include_router(agent_router, prefix="/api/agents", tags=["agents"])
+# app.include_router(portfolio_router, prefix="/api/portfolio", tags=["portfolio"])
+# app.include_router(market_router, prefix="/api/market", tags=["market"])
+# app.include_router(news_router, prefix="/api/news", tags=["news"])
 
 @app.get("/health")
 async def health():
