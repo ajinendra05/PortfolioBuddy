@@ -11,7 +11,7 @@ def embed_and_store_articles(articles: list[dict]):
     """
     Called by background job or news router to embed + store articles.
     """
-    from backend.memory.chroma_client import get_collection
+    from memory.chroma_client import get_collection
     collection = get_collection("financial_news")
     embedder = get_embedder()
 
