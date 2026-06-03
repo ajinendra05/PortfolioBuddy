@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from database import engine, Base
-from routers import auth_router, agent_router  #, portfolio_router, market_router, news_router
+from routers.auth_router import router as auth_router
+from routers.agent_router import router as agent_router
 from memory.chroma_client import init_chroma
 
 @asynccontextmanager

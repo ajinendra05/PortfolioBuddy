@@ -22,5 +22,10 @@ dependencies = [
     "yfinance>=1.4.1",
     "asyncpg>=0.31.0",
     "python-jose>=3.5.0",
-    "pydentic>=0.0.1.dev3",
+    "python-multipart>=0.0.30",
+    "alembic>=1.18.4",
+    "langgraph>=1.2.2",
+    "langchain-community>=0.4.2",
+    "requests>=2.34.2",
+    "pydantic[email]>=2.13.4",
 ]
