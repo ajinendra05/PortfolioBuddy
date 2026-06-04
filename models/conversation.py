@@ -33,7 +33,7 @@ class Message(Base):
     conversation_id = Column(UUID(as_uuid=True), ForeignKey("conversations.id"), nullable=False)
     role = Column(String, nullable=False)           # "user" | "assistant" | "tool"
     content = Column(Text, nullable=False)
-    metadata = Column(JSONB, nullable=True)         # tool call results, charts data, etc.
+    metadata_ = Column("metadata", JSONB, nullable=True)         # tool call results, charts data, etc.
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
     conversation = relationship("Conversation", back_populates="messages")

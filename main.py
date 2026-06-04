@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from database import engine, Base
-from routers import auth_router, agent_router  #, portfolio_router, market_router, news_router
+from routers.auth_router import router as auth_router
+from routers.agent_router import router as agent_router
 from memory.chroma_client import init_chroma
 
 @asynccontextmanager
@@ -24,7 +25,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://your-vercel-app.vercel.app"],
+    allow_origins=["*", "http://localhost:3000", "https://your-vercel-app.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -32,9 +33,9 @@ app.add_middleware(
 
 app.include_router(auth_router, prefix="/api/auth", tags=["auth"])
 app.include_router(agent_router, prefix="/api/agents", tags=["agents"])
-# app.include_router(portfolio_router, prefix="/api/portfolio", tags=["portfolio"])
-# app.include_router(market_router, prefix="/api/market", tags=["market"])
-# app.include_router(news_router, prefix="/api/news", tags=["news"])
+# app.include_router(portfolio.router, prefix="/api/portfolio", tags=["portfolio"])
+# app.include_router(market.router, prefix="/api/market", tags=["market"])
+# app.include_router(news.router, prefix="/api/news", tags=["news"])
 
 @app.get("/health")
 async def health():
