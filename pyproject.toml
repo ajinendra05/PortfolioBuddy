@@ -28,4 +28,5 @@ dependencies = [
     "langchain-community>=0.4.2",
     "requests>=2.34.2",
     "pydantic[email]>=2.13.4",
+    "argon2-cffi>=25.1.0",
 ]

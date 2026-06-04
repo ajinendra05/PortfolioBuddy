@@ -9,14 +9,25 @@ from config import settings
 from database import get_db
 from models.users import User
 
-pwd_context = CryptContext(schemes=["bcrypt_sha256"], deprecated="auto")
+# pwd_context = CryptContext(schemes=["bcrypt_sha256"], deprecated="auto")
 bearer_scheme = HTTPBearer()
 
-def hash_password(password: str) -> str:
-    return pwd_context.hash(password)  # Use bcrypt_sha256 to avoid truncation
+pwd_context = CryptContext(
+    schemes=["argon2"],
+    deprecated="auto"
+)
 
-def verify_password(plain: str, hashed: str) -> bool:
-    return pwd_context.verify(plain, hashed)
+# def hash_password(password: str) -> str:
+#     return pwd_context.hash(password)  # Use bcrypt_sha256 to avoid truncation
+
+# def verify_password(plain: str, hashed: str) -> bool:
+#     return pwd_context.verify(plain, hashed)
+
+def hash_password(password: str):
+    return pwd_context.hash(password)
+
+def verify_password(password: str, hashed: str):
+    return pwd_context.verify(password, hashed)
 
 def create_access_token(user_id: str) -> str:
     expire = datetime.now(timezone.utc) + timedelta(minutes=settings.access_token_expire_minutes)
