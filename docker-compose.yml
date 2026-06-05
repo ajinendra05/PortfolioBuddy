@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_USER: PortfolioBuddy
       POSTGRES_PASSWORD: Portfoliobuddy-2026
-      POSTGRES_DB: PortfolioBuddy_DB
+      POSTGRES_DB: PortfolioBuddy_DB          #portfoliobuddy_db 
 
     ports:
       - "5432:5432"
