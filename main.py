@@ -8,14 +8,44 @@ from memory.chroma_client import init_chroma
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    yield
     # Startup: create tables, init ChromaDB
+    print("Starting up: creating tables and initializing ChromaDB...")
     # async with engine.begin() as conn:
     #     await conn.run_sync(Base.metadata.create_all)
     # init_chroma()
-    # yield
+
+    print("STARTUP BEGIN")
+
+    try:
+        print("CONNECTING DATABASE")
+
+        async with engine.begin() as conn:
+            print("DATABASE CONNECTED")
+
+            await conn.run_sync(Base.metadata.create_all)
+
+            print("TABLES CREATED")
+
+    except Exception as e:
+        print("DATABASE ERROR:", str(e))
+        raise
+
+    try:
+        print("INITIALIZING CHROMA")
+
+        init_chroma()
+
+        print("CHROMA INITIALIZED")
+
+    except Exception as e:
+        print("CHROMA ERROR:", str(e))
+        raise
+
+    print("STARTUP COMPLETE")
+
+    yield
     # Shutdown: cleanup
-    # await engine.dispose()
+    await engine.dispose()
 
 app = FastAPI(
     title="FinAI Platform",
