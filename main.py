@@ -63,7 +63,7 @@ app.add_middleware(
 )
 
 app.include_router(auth_router, prefix="/api/auth", tags=["auth"])
-app.include_router(agent_router, prefix="/api/agents", tags=["agents"])
+# app.include_router(agent_router, prefix="/api/agents", tags=["agents"])
 # app.include_router(portfolio.router, prefix="/api/portfolio", tags=["portfolio"])
 # app.include_router(market.router, prefix="/api/market", tags=["market"])
 # app.include_router(news.router, prefix="/api/news", tags=["news"])
