@@ -51,7 +51,7 @@ app = FastAPI(
     title="FinAI Platform",
     description="Multi-Agent Investment & Trading Assistant",
     version="1.0.0",
-    # lifespan=lifespan
+    lifespan=lifespan
 )
 
 app.add_middleware(
@@ -62,8 +62,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# app.include_router(auth_router, prefix="/api/auth", tags=["auth"])
-# app.include_router(agent_router, prefix="/api/agents", tags=["agents"])
+app.include_router(auth_router, prefix="/api/auth", tags=["auth"])
+app.include_router(agent_router, prefix="/api/agents", tags=["agents"])
 # app.include_router(portfolio.router, prefix="/api/portfolio", tags=["portfolio"])
 # app.include_router(market.router, prefix="/api/market", tags=["market"])
 # app.include_router(news.router, prefix="/api/news", tags=["news"])
