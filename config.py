@@ -7,7 +7,11 @@ load_dotenv()
 
 class Settings(BaseSettings):
     # Database
-    database_url: str = os.getenv("DATABASE_URL", "postgresql://postgres:wVOfJGniUfCmhlsGTNSaaIpRknfEphrl@postgres.railway.internal:5432/railway")
+    # postgresql+asyncpg://PortfolioBuddy:Portfoliobuddy-2026@localhost:5432/PortfolioBuddy_DB
+    
+    database_url: str = os.getenv("DATABASE_URL", "postgresql://postgres:wVOfJGniUfCmhlsGTNSaaIpRknfEphrl@:/railway")
+    # database_url: str = os.getenv("DATABASE_URL", "postgresql+asyncpg://PortfolioBuddy:Portfoliobuddy-2026@localhost:5432/PortfolioBuddy_DB")
+
     redis_url: str = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 
     # Auth
@@ -28,8 +32,18 @@ class Settings(BaseSettings):
     llm_provider: str = "openai"
     llm_model: str = "llama3-70b-8192"  # Groq default
 
+     # ── AngelOne SmartAPI ────────────────────────────────────
+    # Sign up at: https://smartapi.angelbroking.com/
+    # Required for live holdings, positions, LTP
+    angelone_api_key: str = ""        # API key from AngelOne developer portal
+    angelone_client_id: str = ""      # Your AngelOne client/login ID
+    angelone_mpin: str = ""           # 4-digit MPIN
+    angelone_totp_secret: str = ""    # TOTP secret from AngelOne app
+
+
     # class Config:
     #     env_file = ".env"
+
 
 @lru_cache()
 def get_settings():

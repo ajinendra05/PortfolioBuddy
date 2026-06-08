@@ -5,47 +5,61 @@ from database import engine, Base
 from routers.auth_router import router as auth_router
 from routers.agent_router import router as agent_router
 from memory.chroma_client import init_chroma
+from routers.trading_router import router as trading_router
+# TESTING
+# @asynccontextmanager
+# async def lifespan(app: FastAPI):
+#     # Startup: create tables, init ChromaDB
+#     print("Starting up: creating tables and initializing ChromaDB...")
+#     # async with engine.begin() as conn:
+#     #     await conn.run_sync(Base.metadata.create_all)
+#     # init_chroma()
+
+#     print("STARTUP BEGIN")
+
+#     try:
+#         print("CONNECTING DATABASE")
+
+#         async with engine.begin() as conn:
+#             print("DATABASE CONNECTED")
+
+#             await conn.run_sync(Base.metadata.create_all)
+
+#             print("TABLES CREATED")
+
+#     except Exception as e:
+#         print("DATABASE ERROR:", str(e))
+#         raise
+
+#     try:
+#         print("INITIALIZING CHROMA")
+
+#         init_chroma()
+
+#         print("CHROMA INITIALIZED")
+
+#     except Exception as e:
+#         print("CHROMA ERROR:", str(e))
+#         raise
+
+#     print("STARTUP COMPLETE")
+
+#     yield
+#     # Shutdown: cleanup
+#     await engine.dispose()
+
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: create tables, init ChromaDB
-    print("Starting up: creating tables and initializing ChromaDB...")
-    # async with engine.begin() as conn:
-    #     await conn.run_sync(Base.metadata.create_all)
-    # init_chroma()
-
-    print("STARTUP BEGIN")
-
-    try:
-        print("CONNECTING DATABASE")
-
-        async with engine.begin() as conn:
-            print("DATABASE CONNECTED")
-
-            await conn.run_sync(Base.metadata.create_all)
-
-            print("TABLES CREATED")
-
-    except Exception as e:
-        print("DATABASE ERROR:", str(e))
-        raise
-
-    try:
-        print("INITIALIZING CHROMA")
-
-        init_chroma()
-
-        print("CHROMA INITIALIZED")
-
-    except Exception as e:
-        print("CHROMA ERROR:", str(e))
-        raise
-
-    print("STARTUP COMPLETE")
-
+    # Create all tables on startup
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    init_chroma()
     yield
-    # Shutdown: cleanup
     await engine.dispose()
+
+
 
 app = FastAPI(
     title="FinAI Platform",
@@ -63,6 +77,7 @@ app.add_middleware(
 )
 
 app.include_router(auth_router, prefix="/api/auth", tags=["auth"])
+app.include_router(trading_router,  prefix="/api/trading", tags=["trading"])
 app.include_router(agent_router, prefix="/api/agents", tags=["agents"])
 # app.include_router(portfolio.router, prefix="/api/portfolio", tags=["portfolio"])
 # app.include_router(market.router, prefix="/api/market", tags=["market"])
