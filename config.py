@@ -7,7 +7,7 @@ load_dotenv()
 
 class Settings(BaseSettings):
     # Database
-    database_url: str = os.getenv("DATABASE_URL", "postgresql+asyncpg://PortfolioBuddy:Portfoliobuddy-2026@localhost:5432/PortfolioBuddy_DB")
+    database_url: str = os.getenv("DATABASE_URL", "postgresql://postgres:wVOfJGniUfCmhlsGTNSaaIpRknfEphrl@postgres.railway.internal:5432/railway")
     redis_url: str = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 
     # Auth
